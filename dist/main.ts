@@ -34,17 +34,17 @@ function hasKey<O extends object>(obj: O, key: PropertyKey): key is keyof O {
 }
 
 class __Console {
-    _terminal: Array<Object>;
-    _config: TerminalConfig;
-    _commands: Object;
+    #_terminal: Array<Object>;
+    #_config: TerminalConfig;
+    #_commands: Object;
 
     constructor(terminal: Array<Object>, config: TerminalConfig) {
-        // this._config = new Object();
-        // this._terminal = new Array();
-        this._terminal = terminal;
-        this._config = config;
+        // this.#_config = new Object();
+        // this.#_terminal = new Array();
+        this.#_terminal = terminal;
+        this.#_config = config;
 
-        this._commands = {
+        this.#_commands = {
             clear: () => this.removeAllLines(),
             // commandGroup: {
             //flags available for command
@@ -52,34 +52,68 @@ class __Console {
             // actual command
             // _commands: {},
             // },
-            ...this._config.commands,
+            ...this.#_config.commands,
         };
     }
 
+    get terminal() {
+        return this.#_terminal;
+    }
+
+    get config() {
+        return this.#_config;
+    }
+
+    get commands() {
+        return this.#_commands;
+    }
+
+    matchIcon(icon: any) {
+        if (typeof icon !== "string") {
+            return;
+        }
+
+        switch (icon) {
+            case "terminal":
+                return this.#_config.icons.terminal;
+            case "system":
+                return this.#_config.icons.system;
+            case "error":
+                return this.#_config.icons.error;
+            case "warn":
+                return this.#_config.icons.warn;
+            case "log":
+                return this.#_config.icons.log;
+
+            default:
+                return icon;
+        }
+    }
+
     addLine(item: TerminalItem) {
-        this._terminal.push({ ...item, id: uuidGen() });
-        return this._terminal;
+        this.#_terminal.push({
+            ...item,
+            icon: this.matchIcon(item.icon),
+            id: uuidGen(),
+        });
+        return this.#_terminal;
     }
 
     removeAllLines() {
-        this._terminal.length = 0;
+        this.#_terminal.length = 0;
         this.addLine({
             text: "cleared",
             type: "system",
-            icon: this._config.icons.terminal,
+            icon: this.#_config.icons.terminal,
         });
-        return this._terminal;
-    }
-
-    get lines() {
-        return this._terminal;
+        return this.#_terminal;
     }
 
     log(message: string) {
         this.addLine({
             text: message,
             type: "normal",
-            icon: this._config.icons.log,
+            icon: this.#_config.icons.log,
         });
     }
 
@@ -87,7 +121,7 @@ class __Console {
         this.addLine({
             text: message,
             type: "warning",
-            icon: this._config.icons.warn,
+            icon: this.#_config.icons.warn,
         });
     }
 
@@ -95,7 +129,7 @@ class __Console {
         this.addLine({
             text: message,
             type: "error",
-            icon: this._config.icons.error,
+            icon: this.#_config.icons.error,
         });
     }
 
@@ -103,7 +137,7 @@ class __Console {
         this.addLine({
             text: message,
             type: "system",
-            icon: this._config.icons.system,
+            icon: this.#_config.icons.system,
         });
     }
 
@@ -122,13 +156,13 @@ class __Console {
 
             return;
         } else if (
-            // !this._commands[_broken_command]
-            // this._commands[_broken_command.toString()] == undefined
-            hasKey(this._commands, _broken_command.toString())
+            // !this.#_commands[_broken_command]
+            // this.#_commands[_broken_command.toString()] == undefined
+            hasKey(this.#_commands, _broken_command.toString())
             // ||
-            // typeof this._commands[_broken_command] == "undefined"
+            // typeof this.#_commands[_broken_command] == "undefined"
             // ||
-            // this._commands[_broken_command]() == undefined
+            // this.#_commands[_broken_command]() == undefined
         ) {
             this.error(
                 `The term '${_broken_command}' is not recognized as the name of a command`
@@ -136,21 +170,21 @@ class __Console {
         } else {
             if (
                 _broken_command.length == 1 &&
-                hasKey(this._commands, _broken_command.toString())
+                hasKey(this.#_commands, _broken_command.toString())
             ) {
                 // checking if its only one word command to avoid processing
-                this._commands[_broken_command.toString()]();
+                this.#_commands[_broken_command.toString()]();
             } else if (
-                hasKey(this._commands, _broken_command.toString()) &&
+                hasKey(this.#_commands, _broken_command.toString()) &&
                 _broken_command.some((v) =>
-                    this._commands[_broken_command[0]]._flags.keys().includes(v)
+                    this.#_commands[_broken_command[0]]._flags.keys().includes(v)
                 )
             ) {
                 //check if parts of the broken command inlcude flags for the command
                 let _command_function = _broken_command.reduce(() => {});
                 let _command_options = _broken_command.reduce(() => {});
 
-                this._commands[_broken_command][_command_function](
+                this.#_commands[_broken_command][_command_function](
                     _command_options
                 );
             }
