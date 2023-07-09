@@ -1,9 +1,11 @@
-interface TerminalItem {
-    text: String;
-    type: String;
+export interface TerminalItem {
+    text: string;
+    type: string;
     icon: any;
 }
-interface TerminalConfig {
+export interface TerminalCommandGroup {
+}
+export interface TerminalConfig {
     commands: Object;
     icons: {
         terminal: any;
@@ -14,19 +16,20 @@ interface TerminalConfig {
     };
 }
 declare class __Console {
-    _terminal: Array<Object>;
-    _config: TerminalConfig;
-    _commands: Object;
+    #private;
     constructor(terminal: Array<Object>, config: TerminalConfig);
+    get terminal(): Object[];
+    get config(): TerminalConfig;
+    get commands(): Object;
+    matchIcon(icon: any): any;
     addLine(item: TerminalItem): Object[];
     removeAllLines(): Object[];
-    get lines(): Object[];
-    log(message: String): void;
-    warn(message: String): void;
-    error(message: String): void;
-    system(message: String): void;
-    response(message: String): void;
-    parse(command: String): void;
+    log(message: string): void;
+    warn(message: string): void;
+    error(message: string): void;
+    system(message: string): void;
+    response(message: string): void;
+    parse(command: string): void;
 }
 declare const Terminal: typeof __Console;
 export default Terminal;
