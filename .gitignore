@@ -1,0 +1,15 @@
+# node
+/node_modules
+package-lock.json
+pnpm-lock.yaml
+
+# testing
+**/__tests__/*
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env*.local
