@@ -5,8 +5,8 @@ import { v4 as uuidv4 } from "uuid";
 const uuidGen = () => uuidv4(); // generate random id
 
 export interface TerminalItem {
-    text: String;
-    type: String;
+    text: string;
+    type: string;
     icon: any;
 }
 
@@ -75,7 +75,7 @@ class __Console {
         return this._terminal;
     }
 
-    log(message: String) {
+    log(message: string) {
         this.addLine({
             text: message,
             type: "normal",
@@ -83,7 +83,7 @@ class __Console {
         });
     }
 
-    warn(message: String) {
+    warn(message: string) {
         this.addLine({
             text: message,
             type: "warning",
@@ -91,7 +91,7 @@ class __Console {
         });
     }
 
-    error(message: String) {
+    error(message: string) {
         this.addLine({
             text: message,
             type: "error",
@@ -99,7 +99,7 @@ class __Console {
         });
     }
 
-    system(message: String) {
+    system(message: string) {
         this.addLine({
             text: message,
             type: "system",
@@ -107,11 +107,11 @@ class __Console {
         });
     }
 
-    response(message: String) {}
+    response(message: string) {}
 
-    parse(command: String) {
+    parse(command: string) {
         // if (typeof command == "string") {
-        let _broken_command: Array<String> = command
+        let _broken_command: string[] = command
             .replace(/^\s+|\s+$/g, "")
             .split(" ")
             .filter((n) => n);
