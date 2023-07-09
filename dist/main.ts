@@ -14,7 +14,7 @@ export interface TerminalCommandGroup {}
 
 // type Dictionary
 
-interface TerminalConfig {
+export interface TerminalConfig {
     commands: Object;
     icons: {
         terminal: any;
