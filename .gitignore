@@ -4,7 +4,7 @@ package-lock.json
 pnpm-lock.yaml
 
 # testing
-**/__tests__/*
+**/tests/*
 
 # debug
 npm-debug.log*
@@ -13,3 +13,6 @@ yarn-error.log*
 
 # local env files
 .env*.local
+
+# typescipt
+tsconfig.json
