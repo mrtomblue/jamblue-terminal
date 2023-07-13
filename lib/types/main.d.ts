@@ -1,7 +1,10 @@
+export type TerminalItemText = string;
+export type TerminalItemType = "normal" | "system" | "error" | "warning";
+export type TerminalItemIcon = any;
 export interface TerminalItem {
-    text: string;
-    type: string;
-    icon: any;
+    text: TerminalItemText;
+    type: TerminalItemType;
+    icon: TerminalItemIcon;
 }
 export interface TerminalCommandGroup {
 }

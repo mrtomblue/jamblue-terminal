@@ -4,10 +4,14 @@ import { v4 as uuidv4 } from "uuid";
 
 const uuidGen = () => uuidv4(); // generate random id
 
+export type TerminalItemText = string;
+export type TerminalItemType = "normal" | "system" | "error" | "warning";
+export type TerminalItemIcon = any;
+
 export interface TerminalItem {
-    text: string;
-    type: string;
-    icon: any;
+    text: TerminalItemText;
+    type: TerminalItemType;
+    icon: TerminalItemIcon;
 }
 
 export interface TerminalCommandGroup {}
@@ -17,12 +21,20 @@ export interface TerminalCommandGroup {}
 export interface TerminalConfig {
     commands: Object;
     icons: {
-        terminal: any;
-        system: any;
-        error: any;
-        warn: any;
-        log: any;
+        // terminal: any;
+        // system: any;
+        // error: any;
+        // warn: any;
+        // log: any;
+        normal: TerminalItemIcon;
+        system: TerminalItemIcon;
+        error: TerminalItemIcon;
+        warning: TerminalItemIcon;
     };
+}
+
+export interface TerminalStates {
+    activeStates: TerminalItem;
 }
 
 // * from https://dev.to/mapleleaf/indexing-objects-in-typescript-1cgi
@@ -33,16 +45,33 @@ function hasKey<O extends object>(obj: O, key: PropertyKey): key is keyof O {
     return key in obj;
 }
 
+function checkKeyReturn<O extends object>(
+    obj: O,
+    key: PropertyKey
+): // key is keyof O
+PropertyKey | null {
+    return key in obj
+        ? key
+        : // ""
+          null;
+}
+
 class __Console {
     #_terminal: Array<Object>;
     #_config: TerminalConfig;
-    #_commands: Object;
+    #_commands: object;
+    #_states: TerminalStates;
 
-    constructor(terminal: Array<Object>, config: TerminalConfig) {
+    constructor(
+        terminal: Array<Object>,
+        config: TerminalConfig,
+        initialStates: TerminalStates
+    ) {
         // this.#_config = new Object();
         // this.#_terminal = new Array();
         this.#_terminal = terminal;
         this.#_config = config;
+        this.#_states = initialStates;
 
         this.#_commands = {
             clear: () => this.removeAllLines(),
@@ -68,22 +97,51 @@ class __Console {
         return this.#_commands;
     }
 
+    // state
+    get activeText() {
+        return this.#_states.activeStates.text;
+    }
+
+    set activeText(activeText: TerminalItemText) {
+        this.#_states.activeStates.text = activeText;
+    }
+
+    get activeType() {
+        return this.#_states.activeStates.type;
+    }
+
+    set activeType(activeType: TerminalItemType) {
+        this.#_states.activeStates.type = activeType;
+    }
+
+    get activeIcon() {
+        return this.#_states.activeStates.icon;
+    }
+
+    set activeIcon(activeIcon: TerminalItemIcon) {
+        this.#_states.activeStates.icon = activeIcon;
+    }
+
     matchIcon(icon: any) {
         if (typeof icon !== "string") {
             return;
         }
 
         switch (icon) {
-            case "terminal":
-                return this.#_config.icons.terminal;
+            // case "terminal":
+            // return this.#_config.icons.terminal;
+            case "norma;":
+                return this.#_config.icons.normal;
             case "system":
                 return this.#_config.icons.system;
             case "error":
                 return this.#_config.icons.error;
-            case "warn":
-                return this.#_config.icons.warn;
-            case "log":
-                return this.#_config.icons.log;
+            case "warning":
+                return this.#_config.icons.warning;
+            // case "warn":
+            // return this.#_config.icons.warn;
+            // case "log":
+            // return this.#_config.icons.log;
 
             default:
                 return icon;
@@ -104,28 +162,28 @@ class __Console {
         this.addLine({
             text: "cleared",
             type: "system",
-            icon: this.#_config.icons.terminal,
+            icon: this.#_config.icons.system,
         });
         return this.#_terminal;
     }
 
-    log(message: string) {
+    log(message: TerminalItemText) {
         this.addLine({
             text: message,
             type: "normal",
-            icon: this.#_config.icons.log,
+            icon: this.#_config.icons.normal,
         });
     }
 
-    warn(message: string) {
+    warn(message: TerminalItemText) {
         this.addLine({
             text: message,
             type: "warning",
-            icon: this.#_config.icons.warn,
+            icon: this.#_config.icons.warning,
         });
     }
 
-    error(message: string) {
+    error(message: TerminalItemText) {
         this.addLine({
             text: message,
             type: "error",
@@ -133,7 +191,7 @@ class __Console {
         });
     }
 
-    system(message: string) {
+    system(message: TerminalItemText) {
         this.addLine({
             text: message,
             type: "system",
@@ -177,7 +235,9 @@ class __Console {
             } else if (
                 hasKey(this.#_commands, _broken_command.toString()) &&
                 _broken_command.some((v) =>
-                    this.#_commands[_broken_command[0]]._flags.keys().includes(v)
+                    this.#_commands[_broken_command[0]]._flags
+                        .keys()
+                        .includes(v)
                 )
             ) {
                 //check if parts of the broken command inlcude flags for the command
