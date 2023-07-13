@@ -1,11 +1,12 @@
 {
     "compilerOptions": {
+        "strict": true,
         "target": "es6",
         "module": "commonjs",
         "declaration": true,
-        "outDir": "./dist-cjs",
-        "strict": true
+        "outDir": "./cjs",
+        "declarationDir": "./lib/types"
     },
-    "include": ["dist"],
-    "exclude": ["node_modules", "**/__tests__/*"]
+    "include": ["src"],
+    "exclude": ["node_modules", "**/tests/*"]
 }
