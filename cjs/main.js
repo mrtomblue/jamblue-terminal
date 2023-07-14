@@ -10,7 +10,7 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
-var ___Console__terminal, ___Console__config, ___Console__commands;
+var ___Console__terminal, ___Console__config, ___Console__commands, ___Console__states;
 Object.defineProperty(exports, "__esModule", { value: true });
 const uuid_1 = require("uuid");
 const uuidGen = () => (0, uuid_1.v4)(); // generate random id
@@ -28,14 +28,16 @@ function checkKeyReturn(obj, key) {
             null;
 }
 class __Console {
-    constructor(terminal, config) {
+    constructor(terminal, config, initialStates) {
         ___Console__terminal.set(this, void 0);
         ___Console__config.set(this, void 0);
         ___Console__commands.set(this, void 0);
+        ___Console__states.set(this, void 0);
         // this.#_config = new Object();
         // this.#_terminal = new Array();
         __classPrivateFieldSet(this, ___Console__terminal, terminal, "f");
         __classPrivateFieldSet(this, ___Console__config, config, "f");
+        __classPrivateFieldSet(this, ___Console__states, initialStates, "f");
         __classPrivateFieldSet(this, ___Console__commands, Object.assign({ clear: () => this.removeAllLines() }, __classPrivateFieldGet(this, ___Console__config, "f").commands), "f");
     }
     get terminal() {
@@ -47,21 +49,44 @@ class __Console {
     get commands() {
         return __classPrivateFieldGet(this, ___Console__commands, "f");
     }
+    // state
+    get activeText() {
+        return __classPrivateFieldGet(this, ___Console__states, "f").activeStates.text;
+    }
+    set activeText(activeText) {
+        __classPrivateFieldGet(this, ___Console__states, "f").activeStates.text = activeText;
+    }
+    get activeType() {
+        return __classPrivateFieldGet(this, ___Console__states, "f").activeStates.type;
+    }
+    set activeType(activeType) {
+        __classPrivateFieldGet(this, ___Console__states, "f").activeStates.type = activeType;
+    }
+    get activeIcon() {
+        return __classPrivateFieldGet(this, ___Console__states, "f").activeStates.icon;
+    }
+    set activeIcon(activeIcon) {
+        __classPrivateFieldGet(this, ___Console__states, "f").activeStates.icon = activeIcon;
+    }
     matchIcon(icon) {
         if (typeof icon !== "string") {
             return;
         }
         switch (icon) {
-            case "terminal":
-                return __classPrivateFieldGet(this, ___Console__config, "f").icons.terminal;
+            // case "terminal":
+            // return this.#_config.icons.terminal;
+            case "norma;":
+                return __classPrivateFieldGet(this, ___Console__config, "f").icons.normal;
             case "system":
                 return __classPrivateFieldGet(this, ___Console__config, "f").icons.system;
             case "error":
                 return __classPrivateFieldGet(this, ___Console__config, "f").icons.error;
-            case "warn":
-                return __classPrivateFieldGet(this, ___Console__config, "f").icons.warn;
-            case "log":
-                return __classPrivateFieldGet(this, ___Console__config, "f").icons.log;
+            case "warning":
+                return __classPrivateFieldGet(this, ___Console__config, "f").icons.warning;
+            // case "warn":
+            // return this.#_config.icons.warn;
+            // case "log":
+            // return this.#_config.icons.log;
             default:
                 return icon;
         }
@@ -75,7 +100,7 @@ class __Console {
         this.addLine({
             text: "cleared",
             type: "system",
-            icon: __classPrivateFieldGet(this, ___Console__config, "f").icons.terminal,
+            icon: __classPrivateFieldGet(this, ___Console__config, "f").icons.system,
         });
         return __classPrivateFieldGet(this, ___Console__terminal, "f");
     }
@@ -83,14 +108,14 @@ class __Console {
         this.addLine({
             text: message,
             type: "normal",
-            icon: __classPrivateFieldGet(this, ___Console__config, "f").icons.log,
+            icon: __classPrivateFieldGet(this, ___Console__config, "f").icons.normal,
         });
     }
     warn(message) {
         this.addLine({
             text: message,
             type: "warning",
-            icon: __classPrivateFieldGet(this, ___Console__config, "f").icons.warn,
+            icon: __classPrivateFieldGet(this, ___Console__config, "f").icons.warning,
         });
     }
     error(message) {
@@ -150,6 +175,6 @@ class __Console {
         // }
     }
 }
-___Console__terminal = new WeakMap(), ___Console__config = new WeakMap(), ___Console__commands = new WeakMap();
+___Console__terminal = new WeakMap(), ___Console__config = new WeakMap(), ___Console__commands = new WeakMap(), ___Console__states = new WeakMap();
 const Terminal = __Console;
 exports.default = Terminal;

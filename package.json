@@ -1,10 +1,11 @@
 {
     "name": "@jamblue/terminal",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "description": "command/function interaction with a terminal feel to it. However does not function like a real terminal.",
     "type": "module",
-    "main": "dist/main.js",
-    "module": "dist/main.js",
+    "module": "cjs/main.ts",
+    "main": "cjs/main.ts",
+    "types": "lib/types/main.d.ts",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "tsc"
