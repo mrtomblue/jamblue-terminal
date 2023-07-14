@@ -97,7 +97,7 @@ class __Console {
         return this.#_commands;
     }
 
-    // state
+    // getter and setter functions for active states
     get activeText() {
         return this.#_states.activeStates.text;
     }

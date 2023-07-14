@@ -49,7 +49,7 @@ class __Console {
     get commands() {
         return __classPrivateFieldGet(this, ___Console__commands, "f");
     }
-    // state
+    // getter and setter functions for active states
     get activeText() {
         return __classPrivateFieldGet(this, ___Console__states, "f").activeStates.text;
     }
@@ -178,3 +178,4 @@ class __Console {
 ___Console__terminal = new WeakMap(), ___Console__config = new WeakMap(), ___Console__commands = new WeakMap(), ___Console__states = new WeakMap();
 const Terminal = __Console;
 exports.default = Terminal;
+//# sourceMappingURL=main.js.map
