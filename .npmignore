@@ -3,10 +3,18 @@
 package-lock.json
 pnpm-lock.yaml
 
+# testing
+**/tests/*
+
 # debug
-npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
 # local env files
 .env*.local
+
+# typescipt
+tsconfig.json
+
+# other ignore files
+.git
