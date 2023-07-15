@@ -2,7 +2,7 @@
 
 import { v4 as uuidv4 } from "uuid";
 
-const uuidGen = () => uuidv4(); // generate random id, no real purpose for now
+const uuidGen = () => uuidv4(); // generate random id, no purpose for now
 
 export type TerminalItemText = string;
 export type TerminalItemType = "normal" | "system" | "error" | "warning";

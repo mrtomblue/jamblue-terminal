@@ -137,12 +137,10 @@ class __Console {
                 __classPrivateFieldGet(this, ___Console__commands, "f")[_broken_command.toString()]();
             }
             else if (hasKey(__classPrivateFieldGet(this, ___Console__commands, "f"), _broken_command.toString()) &&
-                _broken_command.some((v) => __classPrivateFieldGet(this, ___Console__commands, "f")[_broken_command[0]]._flags
+                _broken_command.some((value) => __classPrivateFieldGet(this, ___Console__commands, "f")[_broken_command[0]]._flags
                     .keys()
-                    .includes(v))) {
-                let _command_function = _broken_command.reduce(() => { });
-                let _command_options = _broken_command.reduce(() => { });
-                __classPrivateFieldGet(this, ___Console__commands, "f")[_broken_command][_command_function](_command_options);
+                    .includes(value))) {
+                this.log('command functionality needs work, check out the github repo to help :) "https://github.com/mrtomblue/jamblue-terminal"');
             }
         }
         return;

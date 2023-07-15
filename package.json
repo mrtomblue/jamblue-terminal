@@ -1,11 +1,16 @@
 {
     "name": "@jamblue/terminal",
-    "version": "0.2.6",
+    "version": "0.2.8",
     "description": "command/function interaction with a terminal feel to it. However does not function like a real terminal.",
     "type": "module",
     "module": "esm/main.js",
     "main": "cjs/main.js",
     "types": "lib/main.d.ts",
+    "exports": {
+        "import": "./esm/main.js",
+        "require": "./cjs/main.js",
+        "default": "./esm/main.js"
+    },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "tsc --project tsconfig.esm.json & tsc --project tsconfig.cjs.json"
