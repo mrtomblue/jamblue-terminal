@@ -5,7 +5,7 @@
         "removeComments": true,
         "noImplicitAny": true,
 
-        "moduleResolution":"Node",
+        // "moduleResolution":"NodeNext",
         "target": "es6",
 
         "declaration": true,
