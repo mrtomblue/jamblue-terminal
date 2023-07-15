@@ -5,7 +5,9 @@
         "removeComments": true,
         "noImplicitAny": true,
 
+        "moduleResolution":"Node",
         "target": "es6",
+
         "declaration": true,
         "outDir": "./lib",
         "emitDeclarationOnly": true,
