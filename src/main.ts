@@ -2,7 +2,7 @@
 
 import { v4 as uuidv4 } from "uuid";
 
-const uuidGen = () => uuidv4(); // generate random id
+const uuidGen = () => uuidv4(); // generate random id, no real purpose for now
 
 export type TerminalItemText = string;
 export type TerminalItemType = "normal" | "system" | "error" | "warning";
@@ -234,18 +234,21 @@ class __Console {
                 this.#_commands[_broken_command.toString()]();
             } else if (
                 hasKey(this.#_commands, _broken_command.toString()) &&
-                _broken_command.some((v) =>
+                _broken_command.some((value) =>
                     this.#_commands[_broken_command[0]]._flags
                         .keys()
-                        .includes(v)
+                        .includes(value)
                 )
             ) {
                 //check if parts of the broken command inlcude flags for the command
-                let _command_function = _broken_command.reduce(() => {});
-                let _command_options = _broken_command.reduce(() => {});
+                // let _command_function = _broken_command.reduce(() => {});
+                // let _command_options = _broken_command.reduce(() => {});
 
-                this.#_commands[_broken_command][_command_function](
-                    _command_options
+                // this.#_commands[_broken_command][_command_function](
+                //     _command_options
+                // );
+                this.log(
+                    'command functionality needs work, check out the github repo to help :) "https://github.com/mrtomblue/jamblue-terminal"'
                 );
             }
         }
