@@ -1,6 +1,6 @@
 {
     "name": "@jamblue/terminal",
-    "version": "0.2.4",
+    "version": "0.2.5",
     "description": "command/function interaction with a terminal feel to it. However does not function like a real terminal.",
     "type": "module",
     "module": "esm/main.js",
