@@ -44,3 +44,4 @@ declare class __Console {
 }
 declare const Terminal: typeof __Console;
 export default Terminal;
+//# sourceMappingURL=main.d.ts.map

@@ -11,9 +11,8 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
 var ___Console__terminal, ___Console__config, ___Console__commands, ___Console__states;
-Object.defineProperty(exports, "__esModule", { value: true });
-const uuid_1 = require("uuid");
-const uuidGen = () => (0, uuid_1.v4)();
+import { v4 as uuidv4 } from "uuid";
+const uuidGen = () => uuidv4();
 function hasKey(obj, key) {
     return key in obj;
 }
@@ -150,5 +149,5 @@ class __Console {
 }
 ___Console__terminal = new WeakMap(), ___Console__config = new WeakMap(), ___Console__commands = new WeakMap(), ___Console__states = new WeakMap();
 const Terminal = __Console;
-exports.default = Terminal;
+export default Terminal;
 //# sourceMappingURL=main.js.map

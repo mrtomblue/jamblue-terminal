@@ -1,14 +1,14 @@
 {
     "name": "@jamblue/terminal",
-    "version": "0.2.3",
+    "version": "0.2.4",
     "description": "command/function interaction with a terminal feel to it. However does not function like a real terminal.",
     "type": "module",
-    "module": "cjs/main.ts",
-    "main": "cjs/main.ts",
-    "types": "cjs/main.d.ts",
+    "module": "esm/main.js",
+    "main": "cjs/main.js",
+    "types": "lib/main.d.ts",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "build": "tsc"
+        "build": "tsc --project tsconfig.esm.json & tsc --project tsconfig.cjs.json"
     },
     "repository": {
         "type": "git",
@@ -18,7 +18,7 @@
         "jamblue",
         "ui"
     ],
-    "author": "opensource@mrtomblue.com",
+    "author": "mrtomblue <opensource@mrtomblue.com>",
     "license": "GPL-3.0-or-later",
     "bugs": {
         "url": "https://github.com/mrtomblue/jamblue-terminal/issues"
@@ -29,6 +29,7 @@
         "uuid": "^9.0.0"
     },
     "devDependencies": {
+        "esbuild": "^0.18.12",
         "typescript": "^5.1.6"
     }
 }
