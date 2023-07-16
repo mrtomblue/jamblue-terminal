@@ -1,4 +1,3 @@
-declare module "@jamblue/terminal"; // added manually, need to fix in future
 export type TerminalItemText = string;
 export type TerminalItemType = "normal" | "system" | "error" | "warning";
 export type TerminalItemIcon = any;
@@ -7,7 +6,8 @@ export interface TerminalItem {
     type: TerminalItemType;
     icon: TerminalItemIcon;
 }
-export interface TerminalCommandGroup {}
+export interface TerminalCommandGroup {
+}
 export interface TerminalConfig {
     commands: TerminalCommandSignatured;
     icons: {
@@ -35,11 +35,7 @@ type TerminalCommandSignatured = {
 };
 declare class __Console {
     #private;
-    constructor(
-        terminal: Array<Object>,
-        config: TerminalConfig,
-        initialStates: TerminalStates
-    );
+    constructor(terminal: Array<Object>, config: TerminalConfig, initialStates: TerminalStates);
     get terminal(): Object[];
     get config(): TerminalConfig;
     get commands(): TerminalCommandSignatured;
