@@ -19,7 +19,8 @@ export interface TerminalCommandGroup {}
 // type Dictionary
 
 export interface TerminalConfig {
-    commands: Object;
+    // commands: TerminalCommand;
+    commands: TerminalCommandSignatured;
     icons: {
         // terminal: any;
         // system: any;
@@ -36,6 +37,26 @@ export interface TerminalConfig {
 export interface TerminalStates {
     activeStates: TerminalItem;
 }
+
+export interface TerminalCommand {
+    placeholderCommand: Function;
+}
+
+export interface TerminalBuiltInCommand {
+    clear: Function;
+}
+
+export interface TerminalCommandGroup {
+    // flags available for command
+    _flags: {};
+    // actual command
+    _commands: {};
+}
+
+type TerminalCommandSignatured = {
+    // [index: string]: Function | TerminalCommandGroup;
+    [index: string]: Function ;
+};
 
 // * from https://dev.to/mapleleaf/indexing-objects-in-typescript-1cgi
 // `PropertyKey` is short for "string | number | symbol"
@@ -59,7 +80,10 @@ PropertyKey | null {
 class __Console {
     #_terminal: Array<Object>;
     #_config: TerminalConfig;
-    #_commands: object;
+    // #_commands: object;
+    // #_commands: TerminalBuiltInCommand & TerminalCommand;
+    // #_commands: object as {[key: number]: {time: string}}
+    #_commands: TerminalCommandSignatured;
     #_states: TerminalStates;
 
     constructor(
@@ -76,10 +100,16 @@ class __Console {
         this.#_commands = {
             clear: () => this.removeAllLines(),
             // commandGroup: {
-            //flags available for command
+            // //flags available for command
             // _flags: {},
-            // actual command
+            // // actual command
             // _commands: {},
+            // },
+            // commandGroupPlaceHolder: {
+            //     // flags available for command
+            //     _flags: {},
+            //     // actual command
+            //     _commands: {},
             // },
             ...this.#_config.commands,
         };
@@ -232,14 +262,17 @@ class __Console {
             ) {
                 // checking if its only one word command to avoid processing
                 this.#_commands[_broken_command.toString()]();
-            } else if (
-                hasKey(this.#_commands, _broken_command.toString()) &&
-                _broken_command.some((value) =>
-                    this.#_commands[_broken_command[0]]._flags
-                        .keys()
-                        .includes(value)
-                )
-            ) {
+            }
+            // ! too many issues
+            // else if (
+            //     hasKey(this.#_commands, _broken_command.toString()) &&
+            //     _broken_command.some((value) =>
+            //         this.#_commands[_broken_command[0]]._flags
+            //             .keys()
+            //             .includes(value)
+            //     )
+            // )
+            else {
                 //check if parts of the broken command inlcude flags for the command
                 // let _command_function = _broken_command.reduce(() => {});
                 // let _command_options = _broken_command.reduce(() => {});
