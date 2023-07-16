@@ -14,7 +14,7 @@ yarn-error.log*
 .env*.local
 
 # typescipt
-tsconfig.json
+tsconfig*.json
 
 # other ignore files
 .git
