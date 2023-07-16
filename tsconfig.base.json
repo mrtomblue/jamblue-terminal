@@ -4,6 +4,7 @@
         "allowJs": true,
         "removeComments": true,
         "noImplicitAny": true,
+        "esModuleInterop": true,
 
         "target": "es6",
         // "moduleResolution": "NodeNext"
@@ -14,8 +15,9 @@
         // "declarationDir": "./lib",
         // "declarationMap": true,
         // "sourceMap": true,
-        "sourceRoot": "./src"
-        // "mapRoot": "./lib"
+        // "sourceRoot": "./src",
+        // "mapRoot": "./lib",
+        "baseUrl": "./lib"
     },
     "include": ["src"],
     "exclude": ["node_modules", "**/tests/*", "./build.cjs"]

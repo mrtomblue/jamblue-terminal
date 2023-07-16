@@ -9,5 +9,6 @@
         // "sourceMap": true,
         // "sourceRoot": "./src"
         // "mapRoot": "./lib"
+        // "mapRoot": "./src"
     }
 }
