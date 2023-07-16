@@ -135,10 +135,7 @@ class __Console {
                 hasKey(__classPrivateFieldGet(this, ___Console__commands, "f"), _broken_command.toString())) {
                 __classPrivateFieldGet(this, ___Console__commands, "f")[_broken_command.toString()]();
             }
-            else if (hasKey(__classPrivateFieldGet(this, ___Console__commands, "f"), _broken_command.toString()) &&
-                _broken_command.some((value) => __classPrivateFieldGet(this, ___Console__commands, "f")[_broken_command[0]]._flags
-                    .keys()
-                    .includes(value))) {
+            else {
                 this.log('command functionality needs work, check out the github repo to help :) "https://github.com/mrtomblue/jamblue-terminal"');
             }
         }

@@ -9,7 +9,7 @@ export interface TerminalItem {
 export interface TerminalCommandGroup {
 }
 export interface TerminalConfig {
-    commands: Object;
+    commands: TerminalCommandSignatured;
     icons: {
         normal: TerminalItemIcon;
         system: TerminalItemIcon;
@@ -20,12 +20,25 @@ export interface TerminalConfig {
 export interface TerminalStates {
     activeStates: TerminalItem;
 }
+export interface TerminalCommand {
+    placeholderCommand: Function;
+}
+export interface TerminalBuiltInCommand {
+    clear: Function;
+}
+export interface TerminalCommandGroup {
+    _flags: {};
+    _commands: {};
+}
+type TerminalCommandSignatured = {
+    [index: string]: Function;
+};
 declare class __Console {
     #private;
     constructor(terminal: Array<Object>, config: TerminalConfig, initialStates: TerminalStates);
     get terminal(): Object[];
     get config(): TerminalConfig;
-    get commands(): object;
+    get commands(): TerminalCommandSignatured;
     get activeText(): TerminalItemText;
     set activeText(activeText: TerminalItemText);
     get activeType(): TerminalItemType;
