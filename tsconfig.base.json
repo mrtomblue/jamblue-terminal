@@ -5,15 +5,15 @@
         "removeComments": true,
         "noImplicitAny": true,
 
-        // "moduleResolution":"NodeNext",
         "target": "es6",
+        // "moduleResolution": "NodeNext"
 
-        "declaration": true,
-        "outDir": "./lib",
-        "emitDeclarationOnly": true,
-        "declarationDir": "./lib",
-        "declarationMap": true,
-        "sourceMap": true,
+        // "declaration": true,
+        // "outDir": "./lib",
+        // "emitDeclarationOnly": true,
+        // "declarationDir": "./lib",
+        // "declarationMap": true,
+        // "sourceMap": true,
         "sourceRoot": "./src"
         // "mapRoot": "./lib"
     },

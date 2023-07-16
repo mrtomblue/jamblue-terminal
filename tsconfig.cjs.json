@@ -3,6 +3,8 @@
     "compilerOptions": {
         "module": "CommonJS",
         "outDir": "./cjs",
-        "emitDeclarationOnly": false
+        // "emitDeclarationOnly": false
+        // "sourceRoot": "./src"
+        "sourceMap": true,
     }
 }
